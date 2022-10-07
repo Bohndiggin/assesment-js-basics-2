@@ -35,7 +35,9 @@ const cart = [
 
 //CODE HERE
 
-// const summedPrice = cart.reduce(/* CALLBACK HERE */)
+const summedPrice = cart.reduce(((acc, curr) => acc + curr.price), 0)
+
+// console.log(summedPrice)
 
 
 //////////////////PROBLEM 2////////////////////
@@ -55,7 +57,9 @@ const cart = [
 
 //CODE HERE
 
-
+function calcFinalPrice(cartTotal, couponValue, tax) {
+    return cartTotal * (1 + tax) - couponValue
+}
 
 //////////////////PROBLEM 3////////////////////
 /*  
@@ -79,7 +83,11 @@ const cart = [
 
 /*
     TEXT ANSWER HERE
-
+So, to start we'll want a name. That'll be a string.
+Next we need to track what's in their cart. That should be an array of objects
+We'll also need to know what table they are sitting at so we can give them the food. This will be a number.
+finally we'll want to track their total. This is going to be a number.
+also we need to know if they have any coupons
 */
 
 /*
@@ -88,3 +96,24 @@ const cart = [
 */
 
 //CODE HERE
+
+class Customer {
+    constructor(name, cart, table, coupons) {
+        this.name = name
+        this.cart = cart
+        this.table = table
+        this.total = 0
+        this.coupons = coupons
+    }
+    addItemToCart(item) {
+        this.cart.push(item)
+    }
+    calcTotal() {
+        this.total = calcFinalPrice(this.cart.reduce(((acc, curr) => acc + curr.price), 0), this.coupons, 0.06)
+    }
+}
+
+let jake = new Customer("jake", cart, 5, 2)
+console.log(jake)
+jake.calcTotal()
+console.log(jake)
